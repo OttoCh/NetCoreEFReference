@@ -1,0 +1,75 @@
+﻿@model Identity.Models.Combination
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h2>Edit</h2>
+
+<h4>Combination</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="CombinationId" />
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            @for (int i = 0; i < Model.CombinationNumber.Count; i++)
+            {
+                @*//working example
+                Content target = Model.CombinationNumber.ElementAt<Content>(i);
+                <input type="hidden" id="Id" value="@target.Id" name="CombinationNumber[@i].Id" />*@
+                
+                //this one working too
+                Content target = Model.CombinationNumber.ElementAt<Content>(i);
+                <input type="hidden" asp-for="@target.Id" name="CombinationNumber[@i].Id" />
+                <div class="form-group">
+                    <label asp-for="CombinationNumber.ElementAt<Content>(i).ContentName" class="control-label"></label>
+                    <input asp-for="CombinationNumber.ElementAt<Content>(i).ContentName" name="CombinationNumber[@i].ContentName" class="form-control" />
+                    <span asp-validation-for="CombinationNumber.ElementAt<Content>(i).ContentName" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="CombinationNumber.ElementAt<Content>(i).ContentNumber" class="control-label"></label>
+                    <input asp-for="CombinationNumber.ElementAt<Content>(i).ContentNumber" name="CombinationNumber[@i].ContentNumber" class="form-control" />
+                    <span asp-validation-for="CombinationNumber.ElementAt<Content>(i).ContentNumber" class="text-danger"></span>
+                </div>
+            }
+
+            @*<div class="form-group">
+            <label asp-for="CombinationNumber.First().ContentName" class="control-label"></label>
+            <input asp-for="CombinationNumber.First().ContentName" class="form-control" />
+            <span asp-validation-for="CombinationNumber.First().ContentName" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="CombinationNumber.First().ContentNumber" class="control-label"></label>
+            <input asp-for="CombinationNumber.First().ContentNumber" class="form-control" />
+            <span asp-validation-for="CombinationNumber.First().ContentNumber" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="CombinationNumber.ElementAt<Content>(1).ContentName" class="control-label"></label>
+            <input asp-for="CombinationNumber.ElementAt<Content>(1).ContentName" class="form-control" />
+            <span asp-validation-for="CombinationNumber.ElementAt<Content>(1).ContentName" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="CombinationNumber.ElementAt<Content>(1).ContentNumber" class="control-label"></label>
+            <input asp-for="CombinationNumber.ElementAt<Content>(1).ContentNumber" class="form-control" />
+            <span asp-validation-for="CombinationNumber.ElementAt<Content>(1).ContentNumber" class="text-danger"></span>
+        </div>*@
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
